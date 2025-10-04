@@ -56,6 +56,10 @@ export class UsersService {
 
   async update(id: string, updateData: Partial<User>): Promise<User> {
     const user = await this.findOne(id);
+    if (updateData.password) {
+      const salt = await bcrypt.genSalt(10);
+      updateData.password = await bcrypt.hash(updateData.password, salt);
+    }
     Object.assign(user, updateData);
     return this.usersRepository.save(user);
   }
