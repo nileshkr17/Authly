@@ -89,7 +89,7 @@ export class MagiclinkService {
       }
 
       // Generate auth tokens
-      return this.authService['generateTokens'](user);
+      return this.authService.issueTokens(user);
     } catch (error) {
       throw new UnauthorizedException('Invalid or expired magic link');
     }
