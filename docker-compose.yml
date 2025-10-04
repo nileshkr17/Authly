@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: authly-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: authly
+      POSTGRES_PASSWORD: authly_password
+      POSTGRES_DB: authly_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - authly-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: authly-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://authly:authly_password@postgres:5432/authly_db
+      JWT_SECRET: ${JWT_SECRET:-dev-jwt-secret-change-in-production}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-1h}
+      OAUTH_GOOGLE_CLIENT_ID: ${OAUTH_GOOGLE_CLIENT_ID}
+      OAUTH_GOOGLE_CLIENT_SECRET: ${OAUTH_GOOGLE_CLIENT_SECRET}
+      OAUTH_GOOGLE_CALLBACK_URL: ${OAUTH_GOOGLE_CALLBACK_URL:-http://localhost:3000/auth/google/callback}
+      OAUTH_GITHUB_CLIENT_ID: ${OAUTH_GITHUB_CLIENT_ID}
+      OAUTH_GITHUB_CLIENT_SECRET: ${OAUTH_GITHUB_CLIENT_SECRET}
+      OAUTH_GITHUB_CALLBACK_URL: ${OAUTH_GITHUB_CALLBACK_URL:-http://localhost:3000/auth/github/callback}
+      MAGIC_LINK_SECRET: ${MAGIC_LINK_SECRET:-dev-magic-link-secret}
+      MAGIC_LINK_EXPIRATION: ${MAGIC_LINK_EXPIRATION:-15m}
+    depends_on:
+      - postgres
+    networks:
+      - authly-network
+
+volumes:
+  postgres_data:
+
+networks:
+  authly-network:
+    driver: bridge
