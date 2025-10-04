@@ -1,0 +1,107 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f8fafc"/>
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1e293b" text-anchor="middle">
+    Authly Architecture
+  </text>
+  
+  <!-- Client Box -->
+  <rect x="50" y="80" width="150" height="80" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <text x="125" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1e40af" text-anchor="middle">
+    Client App
+  </text>
+  <text x="125" y="135" font-family="Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle">
+    Web / Mobile
+  </text>
+  
+  <!-- Authly API Box -->
+  <rect x="325" y="80" width="150" height="320" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="400" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#15803d" text-anchor="middle">
+    Authly API
+  </text>
+  
+  <!-- Auth Modules -->
+  <rect x="340" y="130" width="120" height="50" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+  <text x="400" y="160" font-family="Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle">
+    JWT Auth
+  </text>
+  
+  <rect x="340" y="195" width="120" height="50" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+  <text x="400" y="225" font-family="Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle">
+    OAuth (Google/GitHub)
+  </text>
+  
+  <rect x="340" y="260" width="120" height="50" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+  <text x="400" y="290" font-family="Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle">
+    Magic Links
+  </text>
+  
+  <rect x="340" y="325" width="120" height="50" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+  <text x="400" y="355" font-family="Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle">
+    User Management
+  </text>
+  
+  <!-- Database Box -->
+  <rect x="600" y="200" width="150" height="80" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="675" y="230" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">
+    PostgreSQL
+  </text>
+  <text x="675" y="255" font-family="Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle">
+    Database
+  </text>
+  
+  <!-- OAuth Providers Box -->
+  <rect x="600" y="80" width="150" height="80" rx="10" fill="#ede9fe" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="675" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#5b21b6" text-anchor="middle">
+    OAuth Providers
+  </text>
+  <text x="675" y="135" font-family="Arial, sans-serif" font-size="12" fill="#5b21b6" text-anchor="middle">
+    Google / GitHub
+  </text>
+  
+  <!-- Email Service Box -->
+  <rect x="600" y="320" width="150" height="80" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+  <text x="675" y="350" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#991b1b" text-anchor="middle">
+    Email Service
+  </text>
+  <text x="675" y="375" font-family="Arial, sans-serif" font-size="12" fill="#991b1b" text-anchor="middle">
+    SMTP / Nodemailer
+  </text>
+  
+  <!-- Arrows -->
+  <!-- Client to API -->
+  <path d="M 200 120 L 325 120" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="260" y="110" font-family="Arial, sans-serif" font-size="11" fill="#64748b">
+    HTTP Requests
+  </text>
+  
+  <!-- API to Database -->
+  <path d="M 475 240 L 600 240" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="520" y="230" font-family="Arial, sans-serif" font-size="11" fill="#64748b">
+    Data
+  </text>
+  
+  <!-- API to OAuth -->
+  <path d="M 475 155 L 520 120 L 600 120" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- API to Email -->
+  <path d="M 475 285 L 520 320 L 600 360" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#64748b" />
+    </marker>
+  </defs>
+  
+  <!-- Features Box -->
+  <rect x="50" y="420" width="700" height="60" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+  <text x="400" y="445" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">
+    Features
+  </text>
+  <text x="400" y="465" font-family="Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">
+    ✅ JWT Tokens • ✅ OAuth 2.0 • ✅ Magic Links • ✅ Password Hashing • ✅ Email Verification • ✅ Token Refresh
+  </text>
+</svg>
