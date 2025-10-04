@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import { AuthService } from '../auth/auth.service';
 import { User } from '../users/user.entity';
 
 @Injectable()
 export class OauthService {
   constructor(
     private usersService: UsersService,
-    private authService: AuthService,
   ) {}
 
   async validateOAuthUser(
