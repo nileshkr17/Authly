@@ -383,6 +383,3 @@ This project is licensed under the ISC License.
 - [Passport](http://www.passportjs.org/) - Authentication middleware
 - [JWT](https://jwt.io/) - JSON Web Tokens
 
-## 📞 Support
-
-For support, email support@authly.com or open an issue in the GitHub repository.
