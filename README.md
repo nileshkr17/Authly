@@ -79,8 +79,10 @@ MAGIC_LINK_SECRET=your-magic-link-secret-key-change-this
 Start both the backend and PostgreSQL database:
 
 ```bash
-docker-compose up
+docker compose up
 ```
+
+> **Note**: If you have Docker Compose v1, use `docker-compose up` instead.
 
 The API will be available at `http://localhost:3000`
 
@@ -150,23 +152,25 @@ npm run format         # Format code with Prettier
 
 ```bash
 # Start services
-docker-compose up
+docker compose up
 
 # Start in detached mode
-docker-compose up -d
+docker compose up -d
 
 # Stop services
-docker-compose down
+docker compose down
 
 # View logs
-docker-compose logs -f
+docker compose logs -f
 
 # Rebuild containers
-docker-compose up --build
+docker compose up --build
 
 # Remove volumes (caution: deletes database data)
-docker-compose down -v
+docker compose down -v
 ```
+
+> **Note**: If you have Docker Compose v1, use `docker-compose` instead of `docker compose`.
 
 ## Development Guidelines
 
