@@ -17,15 +17,4 @@ export class CreateUserDto {
   @IsString()
   lastName?: string;
 
-  @IsOptional()
-  @IsString()
-  googleId?: string;
-
-  @IsOptional()
-  @IsString()
-  githubId?: string;
-
-  @IsOptional()
-  @IsBoolean()
-  isEmailVerified?: boolean;
 }
