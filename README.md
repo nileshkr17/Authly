@@ -89,498 +89,300 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
-  "success": true,
-  "message": "User registered successfully",
-  "data": {
-    "user": {
-      "id": "123e4567-e89b-12d3-a456-426614174000",
-      "email": "user@example.com",
-      "name": "John Doe"
-    },
-    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "uuid",
+    "email": "user@example.com",
+    "firstName": "John",
+    "lastName": "Doe"
   }
 }
 ```
 
-### 🔹 User Login
+#### 2. Login
 
-```bash
-POST /api/auth/login
-Content-Type: application/json
+**POST** `/api/auth/login`
 
+```json
 {
   "email": "user@example.com",
-  "password": "SecurePassword123!"
+  "password": "securePassword123"
 }
 ```
 
 **Response:**
+
 ```json
 {
-  "success": true,
-  "message": "Login successful",
-  "data": {
-    "user": {
-      "id": "123e4567-e89b-12d3-a456-426614174000",
-      "email": "user@example.com",
-      "name": "John Doe"
-    },
-    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "uuid",
+    "email": "user@example.com",
+    "firstName": "John",
+    "lastName": "Doe"
   }
 }
 ```
 
-### 🔹 OAuth Login (Google)
+#### 3. Refresh Token
 
-```bash
-GET /api/auth/google
+**POST** `/api/auth/refresh`
+
+```json
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
 ```
 
-Redirects to Google OAuth consent screen, then callback to:
+**Response:**
 
-```bash
-GET /api/auth/google/callback?code=AUTHORIZATION_CODE
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "uuid",
+    "email": "user@example.com"
+  }
+}
 ```
 
-### 🔹 OAuth Login (GitHub)
+### OAuth Endpoints
 
-```bash
-GET /api/auth/github
-```
+#### 4. Google OAuth
 
-Redirects to GitHub OAuth consent screen, then callback to:
+**GET** `/api/oauth/google`
 
-```bash
-GET /api/auth/github/callback?code=AUTHORIZATION_CODE
-```
+Redirects to Google OAuth consent screen.
 
-### 🔹 Magic Link Login
+**GET** `/api/oauth/google/callback`
 
-**Step 1: Request Magic Link**
-```bash
-POST /api/auth/magic-link
-Content-Type: application/json
+Google OAuth callback endpoint. Returns JWT tokens upon successful authentication.
 
+#### 5. GitHub OAuth
+
+**GET** `/api/oauth/github`
+
+Redirects to GitHub OAuth authorization screen.
+
+**GET** `/api/oauth/github/callback`
+
+GitHub OAuth callback endpoint. Returns JWT tokens upon successful authentication.
+
+### Magic Link Endpoints
+
+#### 6. Send Magic Link
+
+**POST** `/api/magiclink/send`
+
+```json
 {
   "email": "user@example.com"
 }
 ```
 
 **Response:**
+
 ```json
 {
-  "success": true,
   "message": "Magic link sent to your email"
 }
 ```
 
-**Step 2: Verify Magic Link**
-```bash
-GET /api/auth/magic-link/verify?token=MAGIC_LINK_TOKEN
-```
+#### 7. Verify Magic Link
+
+**GET** `/api/magiclink/verify?token=<magic_link_token>`
 
 **Response:**
+
 ```json
 {
-  "success": true,
-  "message": "Authentication successful",
-  "data": {
-    "user": {
-      "id": "123e4567-e89b-12d3-a456-426614174000",
-      "email": "user@example.com"
-    },
-    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "uuid",
+    "email": "user@example.com"
   }
 }
 ```
 
-### 🔹 Token Refresh
+### User Endpoints
 
-```bash
-POST /api/auth/refresh
-Content-Type: application/json
+#### 8. Get All Users (Protected)
 
-{
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
+**GET** `/api/users`
+
+**Headers:**
+```
+Authorization: Bearer <access_token>
 ```
 
 **Response:**
+
 ```json
-{
-  "success": true,
-  "data": {
-    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-  }
-}
-```
-
-### 🔹 Protected Route Example
-
-```bash
-GET /api/users/me
-Authorization: Bearer YOUR_ACCESS_TOKEN
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "id": "123e4567-e89b-12d3-a456-426614174000",
+[
+  {
+    "id": "uuid",
     "email": "user@example.com",
-    "name": "John Doe",
+    "firstName": "John",
+    "lastName": "Doe",
+    "isEmailVerified": true,
     "createdAt": "2024-01-01T00:00:00.000Z"
   }
-}
+]
 ```
 
----
+#### 9. Get User by ID (Protected)
 
-## 🚀 Getting Started
+**GET** `/api/users/:id`
 
-### Prerequisites
-
-Before you begin, ensure you have the following installed:
-- **Node.js** (v16 or higher)
-- **npm** or **yarn**
-- **PostgreSQL** (v13 or higher)
-- **Docker** (optional, for containerized setup)
-- **Git**
-
-### 📦 Installation
-
-#### Option 1: Local Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/nileshkr17/Authly.git
-   cd Authly
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   ```
-
-   Edit `.env` file with your configuration:
-   ```env
-   # Application
-   NODE_ENV=development
-   PORT=3000
-   API_PREFIX=/api
-
-   # Database
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_USERNAME=postgres
-   DB_PASSWORD=your_password
-   DB_DATABASE=authly
-
-   # JWT
-   JWT_SECRET=your-super-secret-jwt-key
-   JWT_EXPIRATION=15m
-   JWT_REFRESH_SECRET=your-super-secret-refresh-key
-   JWT_REFRESH_EXPIRATION=7d
-
-   # OAuth - Google
-   GOOGLE_CLIENT_ID=your-google-client-id
-   GOOGLE_CLIENT_SECRET=your-google-client-secret
-   GOOGLE_CALLBACK_URL=http://localhost:3000/api/auth/google/callback
-
-   # OAuth - GitHub
-   GITHUB_CLIENT_ID=your-github-client-id
-   GITHUB_CLIENT_SECRET=your-github-client-secret
-   GITHUB_CALLBACK_URL=http://localhost:3000/api/auth/github/callback
-
-   # Email (for magic links)
-   SMTP_HOST=smtp.gmail.com
-   SMTP_PORT=587
-   SMTP_USER=your-email@gmail.com
-   SMTP_PASSWORD=your-app-password
-   EMAIL_FROM=noreply@authly.com
-
-   # Magic Link
-   MAGIC_LINK_SECRET=your-magic-link-secret
-   MAGIC_LINK_EXPIRATION=15m
-   MAGIC_LINK_URL=http://localhost:3000/api/auth/magic-link/verify
-
-   # Security
-   BCRYPT_ROUNDS=10
-   RATE_LIMIT_TTL=60
-   RATE_LIMIT_MAX=100
-   ```
-
-4. **Set up the database**
-   ```bash
-   # Create PostgreSQL database
-   createdb authly
-
-   # Run migrations
-   npm run migration:run
-   # or
-   yarn migration:run
-   ```
-
-5. **Start the development server**
-   ```bash
-   npm run start:dev
-   # or
-   yarn start:dev
-   ```
-
-   The API will be available at `http://localhost:3000`
-
-#### Option 2: Docker Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/nileshkr17/Authly.git
-   cd Authly
-   ```
-
-2. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   ```
-   Edit the `.env` file as needed.
-
-3. **Start with Docker Compose**
-   ```bash
-   docker-compose up -d
-   ```
-
-   This will start:
-   - Authly API on `http://localhost:3000`
-   - PostgreSQL on `localhost:5432`
-
-4. **View logs**
-   ```bash
-   docker-compose logs -f
-   ```
-
-5. **Stop the services**
-   ```bash
-   docker-compose down
-   ```
-
----
-
-## 🏃 Running the Project
-
-### Development Mode
-```bash
-npm run start:dev
-# or
-yarn start:dev
+**Headers:**
+```
+Authorization: Bearer <access_token>
 ```
 
-### Production Mode
-```bash
-# Build the project
-npm run build
-# or
-yarn build
+## 🧪 Testing
 
-# Start production server
-npm run start:prod
-# or
-yarn start:prod
-```
+### Run Unit Tests
 
-### Running Tests
 ```bash
-# Unit tests
 npm run test
-# or
-yarn test
-
-# E2E tests
-npm run test:e2e
-# or
-yarn test:e2e
-
-# Test coverage
-npm run test:cov
-# or
-yarn test:cov
 ```
 
-### Linting & Formatting
+### Run Tests with Coverage
+
 ```bash
-# Run ESLint
-npm run lint
-# or
-yarn lint
-
-# Fix ESLint errors
-npm run lint:fix
-# or
-yarn lint:fix
-
-# Format with Prettier
-npm run format
-# or
-yarn format
+npm run test:cov
 ```
 
----
+### Run Tests in Watch Mode
+
+```bash
+npm run test:watch
+```
+
+## 🏗️ Project Structure
+
+```
+src/
+├── auth/                   # Authentication module
+│   ├── dto/               # Data transfer objects
+│   ├── auth.controller.ts # Auth endpoints
+│   ├── auth.service.ts    # Auth business logic
+│   └── auth.module.ts     # Auth module definition
+├── users/                  # Users module
+│   ├── dto/               # User DTOs
+│   ├── user.entity.ts     # User database entity
+│   ├── users.controller.ts
+│   ├── users.service.ts
+│   └── users.module.ts
+├── oauth/                  # OAuth module
+│   ├── oauth.controller.ts
+│   ├── oauth.service.ts
+│   └── oauth.module.ts
+├── magiclink/             # Magic link module
+│   ├── dto/
+│   ├── magiclink.controller.ts
+│   ├── magiclink.service.ts
+│   └── magiclink.module.ts
+├── common/                # Shared resources
+│   ├── guards/           # Auth guards
+│   ├── decorators/       # Custom decorators
+│   └── strategies/       # Passport strategies
+├── app.module.ts         # Root module
+└── main.ts               # Application entry point
+```
+
+## 🔧 Development
+
+### Linting
+
+```bash
+npm run lint
+```
+
+### Formatting
+
+```bash
+npm run format
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+## 🔐 Setting Up OAuth
+
+### Google OAuth
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing one
+3. Enable Google+ API
+4. Create OAuth 2.0 credentials
+5. Add authorized redirect URIs: `http://localhost:3000/api/oauth/google/callback`
+6. Copy Client ID and Client Secret to `.env`
+
+### GitHub OAuth
+
+1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
+2. Create a new OAuth App
+3. Set Authorization callback URL: `http://localhost:3000/api/oauth/github/callback`
+4. Copy Client ID and Client Secret to `.env`
+
+## 📧 Email Configuration
+
+For Magic Link authentication, configure your SMTP settings in `.env`. For Gmail:
+
+1. Enable 2-factor authentication
+2. Generate an App Password
+3. Use the App Password in `SMTP_PASSWORD`
+
+## 🐳 Docker Deployment
+
+### Build and Run
+
+```bash
+docker-compose up --build
+```
+
+### Stop Containers
+
+```bash
+docker-compose down
+```
+
+### Clean Up (including volumes)
+
+```bash
+docker-compose down -v
+```
 
 ## 🤝 Contributing
 
-We love contributions! Authly is an open-source project and we welcome contributions of all kinds: code, documentation, bug reports, feature requests, etc.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### 🎃 Hacktoberfest
+## 📝 License
 
-Authly is **Hacktoberfest-friendly**! We have plenty of issues labeled as `good first issue` and `hacktoberfest` that are perfect for newcomers.
+This project is licensed under the ISC License.
 
-### How to Contribute
+## 🙏 Acknowledgments
 
-1. **Fork the repository**
-   
-   Click the "Fork" button at the top right of this page.
+- [NestJS](https://nestjs.com/) - Progressive Node.js framework
+- [TypeORM](https://typeorm.io/) - ORM for TypeScript
+- [Passport](http://www.passportjs.org/) - Authentication middleware
+- [JWT](https://jwt.io/) - JSON Web Tokens
 
-2. **Clone your fork**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/Authly.git
-   cd Authly
-   ```
+## 📞 Support
 
-3. **Create a new branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   # or
-   git checkout -b fix/your-bug-fix
-   ```
-
-4. **Make your changes**
-   
-   Follow the coding standards and write tests for your changes.
-
-5. **Commit your changes**
-   ```bash
-   git add .
-   git commit -m "feat: add amazing feature"
-   ```
-
-   Follow [Conventional Commits](https://www.conventionalcommits.org/) specification:
-   - `feat:` for new features
-   - `fix:` for bug fixes
-   - `docs:` for documentation changes
-   - `test:` for test changes
-   - `refactor:` for code refactoring
-   - `chore:` for maintenance tasks
-
-6. **Push to your fork**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-7. **Create a Pull Request**
-   
-   Go to the [Authly repository](https://github.com/nileshkr17/Authly) and click "New Pull Request".
-
-### 🐛 Good First Issues
-
-Looking for a place to start? Check out issues labeled with:
-- [`good first issue`](https://github.com/nileshkr17/Authly/labels/good%20first%20issue) - Perfect for newcomers
-- [`help wanted`](https://github.com/nileshkr17/Authly/labels/help%20wanted) - We need your help!
-- [`hacktoberfest`](https://github.com/nileshkr17/Authly/labels/hacktoberfest) - Hacktoberfest-friendly issues
-
-### 📋 Contribution Ideas
-
-- 🐛 Fix bugs or report issues
-- ✨ Add new features
-- 📝 Improve documentation
-- 🧪 Write tests
-- 🎨 Improve UI/UX
-- 🌐 Add translations
-- ⚡ Performance improvements
-- 🔒 Security enhancements
-
-### Code of Conduct
-
-Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2024 Nilesh Kumar
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
----
-
-## 👥 Contact & Maintainers
-
-### Maintainers
-
-- **Nilesh Kumar** - [@nileshkr17](https://github.com/nileshkr17)
-
-### Get in Touch
-
-- 🐛 Report bugs: [GitHub Issues](https://github.com/nileshkr17/Authly/issues)
-- 💡 Feature requests: [GitHub Discussions](https://github.com/nileshkr17/Authly/discussions)
-- 📧 Email: [Contact via GitHub](https://github.com/nileshkr17)
-- 💬 Discord: Coming Soon!
-
-### Support the Project
-
-If you find Authly helpful, please consider:
-- ⭐ Starring the repository
-- 🐛 Reporting bugs
-- 📝 Contributing to documentation
-- 💻 Contributing code
-- 📢 Spreading the word
-
----
-
-<div align="center">
-
-### 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=nileshkr17/Authly&type=Date)](https://star-history.com/#nileshkr17/Authly&Date)
-
----
-
-**Made with ❤️ by indie developers, for indie developers**
-
-[⬆ Back to Top](#-authly)
-
-</div>
+For support, email support@authly.com or open an issue in the GitHub repository.
