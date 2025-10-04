@@ -4,9 +4,7 @@ import { User } from '../users/user.entity';
 
 @Injectable()
 export class OauthService {
-  constructor(
-    private usersService: UsersService,
-  ) {}
+  constructor(private usersService: UsersService) {}
 
   async validateOAuthUser(
     email: string,

@@ -73,6 +73,95 @@ Building authentication from scratch is time-consuming, error-prone, and complex
 
 ---
 
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v20 or higher)
+- npm or yarn
+- Docker and Docker Compose (for containerized setup)
+- PostgreSQL (if running without Docker)
+
+### Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/nileshkr17/Authly.git
+cd Authly
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Set up environment variables**
+
+Copy the example environment file and configure it with your settings:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` file and update the following variables:
+- `JWT_SECRET` - Your JWT secret key
+- `JWT_REFRESH_SECRET` - Your JWT refresh token secret
+- `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` - For Google OAuth
+- `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` - For GitHub OAuth
+- `MAGIC_LINK_SECRET` - Secret for magic link tokens
+- `SMTP_*` variables - For email functionality
+- `DB_*` variables - Database connection settings
+
+### Running the Application
+
+#### Option 1: Using Docker (Recommended)
+
+The easiest way to get started is using Docker Compose, which will set up both the application and PostgreSQL database:
+
+```bash
+docker-compose up --build
+```
+
+The application will be available at `http://localhost:3000`
+
+To stop the containers:
+
+```bash
+docker-compose down
+```
+
+#### Option 2: Local Development
+
+If you prefer to run the application locally:
+
+1. **Ensure PostgreSQL is running** and update the database connection settings in `.env`
+
+2. **Run in development mode**
+
+```bash
+npm run start:dev
+```
+
+3. **Run in production mode**
+
+```bash
+npm run build
+npm run start:prod
+```
+
+The application will be available at `http://localhost:3000`
+
+### Verify Installation
+
+Once the application is running, you can verify it's working by accessing:
+
+- API endpoint: `http://localhost:3000/api`
+- Health check: Try registering a user or accessing any API endpoint
+
+---
+
 ## 📸 API Usage Examples
 
 ### 🔹 User Registration
