@@ -17,6 +17,7 @@ export class CreateUserDto {
   @IsString()
   lastName?: string;
 
+  @IsOptional()
   @IsBoolean()
   isEmailVerified?: boolean;
 }
