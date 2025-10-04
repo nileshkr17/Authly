@@ -1,147 +1,90 @@
-# Authly
+<div align="center">
 
-A modern, production-ready authentication microservice built with TypeScript and NestJS. Authly provides JWT-based authentication, OAuth integration (Google & GitHub), and passwordless magic link login.
+# 🔐 Authly
 
-## 🚀 Features
+### Plug-and-Play Authentication Microservice for Indie Developers
 
-- **JWT Authentication** - Secure token-based authentication with access and refresh tokens
-- **OAuth Integration** - Login with Google and GitHub
-- **Magic Link Login** - Passwordless authentication via email
-- **PostgreSQL Database** - Robust data persistence with TypeORM
-- **Docker Support** - Easy deployment with Docker and Docker Compose
-- **Type Safety** - Full TypeScript support
-- **Input Validation** - Request validation using class-validator
-- **Testing** - Unit tests with Jest
-- **Code Quality** - ESLint and Prettier for consistent code style
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/nileshkr17/Authly)
+[![npm version](https://img.shields.io/badge/npm-v1.0.0-blue)](https://www.npmjs.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-friendly-orange)](https://hacktoberfest.com/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/nileshkr17/Authly/pulls)
 
-## 📋 Prerequisites
+[Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [API Usage](#-api-usage) • [Contributing](#-contributing)
 
-- Node.js 20.x or higher
-- PostgreSQL 15.x or higher
-- Docker and Docker Compose (optional)
-- npm or yarn
+</div>
 
-## 🛠️ Installation
+---
 
-### 1. Clone the repository
+## 🎯 Problem & Solution
 
-```bash
-git clone https://github.com/nileshkr17/Authly.git
-cd Authly
-```
+### The Problem
+Building authentication from scratch is time-consuming, error-prone, and complex. Indie developers and small teams often spend weeks implementing secure authentication instead of focusing on their core product.
 
-### 2. Install dependencies
+### The Solution
+**Authly** is a production-ready authentication microservice that you can deploy in minutes. It handles all the complexity of modern authentication, so you can focus on building your application.
 
-```bash
-npm install
-```
+---
 
-### 3. Environment Configuration
+## ✨ Features
 
-Create a `.env` file in the root directory:
+### 🎯 Must-Have Features
+- ✅ **JWT-based Authentication** - Secure token-based authentication with refresh tokens
+- ✅ **Email/Password Login** - Traditional signup and login with secure password hashing
+- ✅ **OAuth Integration** - Seamless login with Google and GitHub
+- ✅ **Passwordless Magic Links** - Email-based authentication without passwords
+- ✅ **User Management** - Complete user CRUD operations
+- ✅ **Token Refresh** - Automatic token renewal for seamless user experience
+- ✅ **Security Best Practices** - Password hashing, CORS, rate limiting, and more
 
-```bash
-cp .env.example .env
-```
+### 🚀 Should-Have Features (Coming Soon)
+- 📧 Email Verification
+- 🔄 Password Reset Flow
+- 👥 Role-Based Access Control (RBAC)
+- 📱 Two-Factor Authentication (2FA)
+- 🔍 Session Management
+- 📊 Activity Logging
 
-Update the `.env` file with your configuration:
+### 💡 Could-Have Features (Future Roadmap)
+- 🎨 Pre-built UI Components
+- 📦 SDK for Popular Frameworks (React, Vue, Angular)
+- 🔌 Webhook Support
+- 📈 Analytics Dashboard
+- 🌐 Multi-tenancy Support
+- 🔐 SSO (Single Sign-On)
 
-```env
-# Application
-NODE_ENV=development
-PORT=3000
+---
 
-# Database
-DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=authly
-DB_PASSWORD=authly_password
-DB_DATABASE=authly_db
+## 🛠️ Tech Stack
 
-# JWT
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
-JWT_EXPIRATION=1h
-JWT_REFRESH_SECRET=your-super-secret-refresh-jwt-key-change-this-in-production
-JWT_REFRESH_EXPIRATION=7d
+<div align="center">
 
-# OAuth - Google
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-GOOGLE_CALLBACK_URL=http://localhost:3000/api/oauth/google/callback
+| Category | Technologies |
+|----------|-------------|
+| **Backend** | TypeScript, Node.js, NestJS/Express |
+| **Database** | PostgreSQL, TypeORM |
+| **Authentication** | JWT, Passport.js, bcrypt |
+| **Email** | Nodemailer |
+| **Containerization** | Docker, Docker Compose |
+| **Testing** | Jest, Supertest |
+| **Code Quality** | ESLint, Prettier |
 
-# OAuth - GitHub
-GITHUB_CLIENT_ID=your-github-client-id
-GITHUB_CLIENT_SECRET=your-github-client-secret
-GITHUB_CALLBACK_URL=http://localhost:3000/api/oauth/github/callback
+</div>
 
-# Magic Link
-MAGIC_LINK_SECRET=your-magic-link-secret-key-change-this-in-production
-MAGIC_LINK_EXPIRATION=15m
+---
 
-# Email (for Magic Link)
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=your-email@gmail.com
-SMTP_PASSWORD=your-email-password
-SMTP_FROM=noreply@authly.com
-```
+## 📸 API Usage Examples
 
-### 4. Database Setup
-
-#### Using Docker Compose (Recommended)
+### 🔹 User Registration
 
 ```bash
-docker-compose up -d postgres
-```
+POST /api/auth/signup
+Content-Type: application/json
 
-#### Manual PostgreSQL Setup
-
-Create a PostgreSQL database:
-
-```sql
-CREATE DATABASE authly_db;
-CREATE USER authly WITH PASSWORD 'authly_password';
-GRANT ALL PRIVILEGES ON DATABASE authly_db TO authly;
-```
-
-## 🚀 Running the Application
-
-### Development Mode
-
-```bash
-npm run start:dev
-```
-
-The application will be available at `http://localhost:3000`
-
-### Production Mode
-
-```bash
-npm run build
-npm run start:prod
-```
-
-### Using Docker Compose
-
-```bash
-docker-compose up --build
-```
-
-## 📚 API Documentation
-
-### Authentication Endpoints
-
-#### 1. Register User
-
-**POST** `/api/auth/register`
-
-```json
 {
   "email": "user@example.com",
-  "password": "securePassword123",
-  "firstName": "John",
-  "lastName": "Doe"
+  "password": "SecurePassword123!",
+  "name": "John Doe"
 }
 ```
 
