@@ -5,6 +5,7 @@
 ### Plug-and-Play Authentication Microservice for Indie Developers
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/nileshkr17/Authly)
+[![PR Validation](https://github.com/nileshkr17/Authly/actions/workflows/pr-validation.yml/badge.svg)](https://github.com/nileshkr17/Authly/actions/workflows/pr-validation.yml)
 [![npm version](https://img.shields.io/badge/npm-v1.0.0-blue)](https://www.npmjs.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-friendly-orange)](https://hacktoberfest.com/)
@@ -366,11 +367,23 @@ docker-compose down -v
 
 ## 🤝 Contributing
 
+We welcome contributions! Before submitting a Pull Request, please ensure:
+
+- ✅ All tests pass (`npm run test`)
+- ✅ Code is linted (`npm run lint`)
+- ✅ Build succeeds (`npm run build`)
+- ✅ **New features include unit tests**
+
+For detailed guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+**Quick Start:**
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+3. Add your changes **with tests**
+4. Ensure all checks pass
+5. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+6. Push to the branch (`git push origin feature/AmazingFeature`)
+7. Open a Pull Request
 
 ## 📝 License
 
