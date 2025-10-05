@@ -6,7 +6,11 @@ Authly is built with security as a top priority. This document outlines the secu
 
 ---
 
-## 🛡️ Security Features
+## 🛡️---
+
+## 🔧 Development Setup
+
+### Generating Secure Secretsrity Features
 
 ### Password Security
 
@@ -277,6 +281,7 @@ Before deploying to production, ensure:
 - [ ] Rate limiting is implemented to prevent abuse
 - [ ] Security headers are configured (HSTS, CSP, etc.)
 - [ ] Secure, HTTP-only cookies are used for token storage
+  > **Note:** Do _not_ use `localStorage` or `sessionStorage` for storing authentication tokens, as they are accessible via JavaScript and vulnerable to XSS attacks. Always use secure, HTTP-only cookies for token storage.
 - [ ] Input validation is working on all endpoints
 - [ ] Password requirements are enforced
 - [ ] Magic link expiration is set appropriately (15 minutes recommended)

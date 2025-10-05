@@ -500,7 +500,8 @@ const response = await fetch(`http://localhost:3000/api/magiclink/verify?token=$
 const { access_token } = await response.json();
 
 // Store token and redirect to app
-localStorage.setItem('access_token', access_token);
+// Note: Use sessionStorage (better) or HTTP-only cookies (best) in production
+sessionStorage.setItem('access_token', access_token);
 window.location.href = '/dashboard';
 ```
 
