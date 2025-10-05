@@ -107,6 +107,36 @@ docker-compose up --build
 
 This will start both the application and PostgreSQL database.
 
+### Frontend Web UI
+
+Authly now includes a complete web UI and admin panel built with Next.js!
+
+```bash
+# Navigate to the frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env.local
+
+# Start the development server (runs on port 3001)
+npm run dev
+```
+
+The frontend will be available at `http://localhost:3001`
+
+**Features:**
+- 🔐 Login and Signup pages with form validation
+- 🌐 OAuth integration (Google, GitHub)
+- ✉️ Magic link authentication
+- 📊 User dashboard with profile information
+- 👥 Admin panel for user management
+- 📱 Fully responsive design
+
+See the [Frontend README](./frontend/README.md) for detailed setup instructions.
+
 ---
 
 ## ✨ Features
@@ -132,7 +162,7 @@ This will start both the application and PostgreSQL database.
 
 ### 💡 Could-Have Features (Future Roadmap)
 
-- 🎨 Pre-built UI Components
+- 🎨 Pre-built UI Components - Complete Next.js frontend with authentication and admin panel
 - 📦 SDK for Popular Frameworks (React, Vue, Angular)
 - 🔌 Webhook Support
 - 📈 Analytics Dashboard
@@ -145,15 +175,18 @@ This will start both the application and PostgreSQL database.
 
 <div align="center">
 
-| Category             | Technologies                        |
-| -------------------- | ----------------------------------- |
-| **Backend**          | TypeScript, Node.js, NestJS/Express |
-| **Database**         | PostgreSQL, TypeORM                 |
-| **Authentication**   | JWT, Passport.js, bcrypt            |
-| **Email**            | Nodemailer                          |
-| **Containerization** | Docker, Docker Compose              |
-| **Testing**          | Jest, Supertest                     |
-| **Code Quality**     | ESLint, Prettier                    |
+| Category | Technologies |
+|----------|-------------|
+| **Backend** | TypeScript, Node.js, NestJS/Express |
+| **Frontend** | Next.js 15, React 19, TypeScript, Tailwind CSS |
+| **State Management** | React Context API |
+| **API Client** | Axios with auto-refresh |
+| **Database** | PostgreSQL, TypeORM |
+| **Authentication** | JWT, Passport.js, bcrypt |
+| **Email** | Nodemailer |
+| **Containerization** | Docker, Docker Compose |
+| **Testing** | Jest, Supertest |
+| **Code Quality** | ESLint, Prettier |
 
 </div>
 
@@ -274,38 +307,57 @@ npm run test:watch
 ## 🏗️ Project Structure
 
 ```
-src/
-├── auth/                   # Authentication module
-│   ├── dto/               # Data transfer objects
-│   ├── guards/            # JWT Auth Guard
-│   ├── strategies/        # JWT Strategy
-│   ├── auth.controller.ts # Auth endpoints
-│   ├── auth.service.ts    # Auth business logic
-│   └── auth.module.ts     # Auth module definition
-├── users/                  # Users module
-│   ├── dto/               # User DTOs
-│   ├── user.entity.ts     # User database entity
-│   ├── users.controller.ts
-│   ├── users.service.ts
-│   └── users.module.ts
-├── oauth/                  # OAuth module
-│   ├── oauth.controller.ts
-│   ├── oauth.service.ts
-│   └── oauth.module.ts
-├── magiclink/             # Magic link module
-│   ├── dto/
-│   ├── magiclink.controller.ts
-│   ├── magiclink.service.ts
-│   └── magiclink.module.ts
-├── config/                # Configuration
-│   └── typeorm.config.ts # TypeORM config for migrations
-├── migrations/            # Database migrations
-├── common/                # Shared resources
-│   ├── guards/           # Auth guards
-│   ├── decorators/       # Custom decorators
-│   └── strategies/       # Passport strategies
-├── app.module.ts         # Root module
-└── main.ts               # Application entry point
+Authly/
+├── src/                    # Backend source code
+│   ├── auth/              # Authentication module
+│   │   ├── dto/          # Data transfer objects
+│   │   ├── guards/       # JWT Auth Guard
+│   │   ├── strategies/   # JWT Strategy
+│   │   ├── auth.controller.ts
+│   │   ├── auth.service.ts
+│   │   └── auth.module.ts
+│   ├── users/             # Users module
+│   │   ├── dto/          # User DTOs
+│   │   ├── user.entity.ts
+│   │   ├── users.controller.ts
+│   │   ├── users.service.ts
+│   │   └── users.module.ts
+│   ├── oauth/             # OAuth module
+│   │   ├── oauth.controller.ts
+│   │   ├── oauth.service.ts
+│   │   └── oauth.module.ts
+│   ├── magiclink/         # Magic link module
+│   │   ├── dto/
+│   │   ├── magiclink.controller.ts
+│   │   ├── magiclink.service.ts
+│   │   └── magiclink.module.ts
+│   ├── config/            # Configuration
+│   ├── migrations/        # Database migrations
+│   ├── common/            # Shared resources
+│   ├── app.module.ts      # Root module
+│   └── main.ts            # Application entry point
+├── frontend/              # Next.js web UI
+│   ├── app/              # Next.js app directory
+│   │   ├── login/       # Login page
+│   │   ├── signup/      # Signup page
+│   │   ├── magic-link/  # Magic link authentication
+│   │   ├── dashboard/   # User dashboard
+│   │   └── admin/       # Admin panel
+│   ├── components/       # Reusable UI components
+│   │   ├── Button.tsx
+│   │   ├── Input.tsx
+│   │   ├── Card.tsx
+│   │   └── Navbar.tsx
+│   ├── contexts/         # React Context providers
+│   │   └── AuthContext.tsx
+│   ├── lib/              # Utilities
+│   │   ├── api.ts       # API service
+│   │   └── mockData.ts  # Mock data for development
+│   └── types/            # TypeScript types
+│       └── index.ts
+├── docker-compose.yml     # Docker setup
+├── Dockerfile            # Container configuration
+└── README.md             # This file
 ```
 
 ## Database Migrations

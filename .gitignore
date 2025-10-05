@@ -3,6 +3,12 @@
 /node_modules
 /build
 
+# Frontend
+/frontend/node_modules
+/frontend/.next
+/frontend/out
+/frontend/.env*.local
+
 # Logs
 logs
 *.log
