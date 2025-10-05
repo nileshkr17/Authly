@@ -48,9 +48,7 @@ export class UsersService {
   }
 
   async validatePassword(user: User, password: string): Promise<boolean> {
-    if (!user.password) {
-      return false;
-    }
+    if (!user.password) return false;
     return bcrypt.compare(password, user.password);
   }
 
