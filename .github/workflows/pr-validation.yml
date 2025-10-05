@@ -44,6 +44,15 @@ jobs:
       - name: Run tests with coverage
         run: npm run test:cov
 
+      - name: Verify coverage file exists
+        run: |
+          if [ ! -f "./coverage/lcov.info" ]; then
+            echo "❌ Error: coverage/lcov.info not found."
+            echo "Ensure Jest outputs 'lcov' and that 'npm run test:cov' generates coverage."
+            exit 1
+          fi
+          echo "✅ Coverage file found: coverage/lcov.info"
+
       - name: Upload coverage reports
         uses: codecov/codecov-action@v4
         if: success()

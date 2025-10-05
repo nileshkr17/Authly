@@ -26,6 +26,8 @@ Before submitting a Pull Request, ensure that:
 - [ ] **Test coverage**: Aim for at least 80% code coverage for new code
 - [ ] **Test your changes**: Run `npm run test:cov` to check coverage
 
+> 📚 **For detailed testing and coverage information**, see [Testing and Coverage Documentation](docs/testing-and-coverage.md)
+
 ### 📝 Test Guidelines
 
 When adding unit tests:
@@ -67,7 +69,9 @@ When you open a Pull Request, our CI/CD pipeline will automatically:
 2. Build the project
 3. Execute all unit tests
 4. Generate a coverage report
-5. Comment the coverage report on your PR
+5. Verify that coverage files are generated correctly
+6. Upload coverage to Codecov (if configured)
+7. Comment the coverage report on your PR
 
 **Your PR will not be merged unless all checks pass.**
 
