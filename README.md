@@ -380,9 +380,62 @@ GitHub OAuth callback endpoint. Returns JWT tokens upon successful authenticatio
 }
 ```
 
+### Protected Routes
+
+#### 8. Get User Profile (Protected)
+
+**GET** `/api/auth/profile`
+
+**Headers:**
+```
+Authorization: Bearer <access_token>
+```
+
+**Response:**
+
+```json
+{
+  "message": "This is a protected route",
+  "user": {
+    "id": "uuid",
+    "email": "user@example.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "isActive": true,
+    "createdAt": "2025-10-04T00:00:00.000Z",
+    "updatedAt": "2025-10-04T00:00:00.000Z"
+  }
+}
+```
+
+**Example with cURL:**
+
+```bash
+curl -X GET http://localhost:3000/api/auth/profile \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+### Using JWT Auth Guard in Your Code
+
+To protect your own routes, use the `JwtAuthGuard`:
+
+```typescript
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+
+@Controller('protected')
+export class ProtectedController {
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  getProtectedData() {
+    return { message: 'This route is protected' };
+  }
+}
+```
+
 ### User Endpoints
 
-#### 8. Get All Users (Protected)
+#### 9. Get All Users (Protected)
 
 **GET** `/api/users`
 
@@ -441,6 +494,8 @@ npm run test:watch
 src/
 ├── auth/                   # Authentication module
 │   ├── dto/               # Data transfer objects
+│   ├── guards/            # JWT Auth Guard
+│   ├── strategies/        # JWT Strategy
 │   ├── auth.controller.ts # Auth endpoints
 │   ├── auth.service.ts    # Auth business logic
 │   └── auth.module.ts     # Auth module definition
@@ -459,12 +514,38 @@ src/
 │   ├── magiclink.controller.ts
 │   ├── magiclink.service.ts
 │   └── magiclink.module.ts
+├── config/                # Configuration
+│   └── typeorm.config.ts # TypeORM config for migrations
+├── migrations/            # Database migrations
 ├── common/                # Shared resources
 │   ├── guards/           # Auth guards
 │   ├── decorators/       # Custom decorators
 │   └── strategies/       # Passport strategies
 ├── app.module.ts         # Root module
 └── main.ts               # Application entry point
+```
+
+## Database Migrations
+
+### Running Migrations
+
+```bash
+# Run all pending migrations
+npm run migration:run
+```
+
+### Creating New Migrations
+
+```bash
+# Generate a new migration based on entity changes
+npm run migration:generate -- src/migrations/MigrationName
+```
+
+### Reverting Migrations
+
+```bash
+# Revert the last executed migration
+npm run migration:revert
 ```
 
 ## 🔧 Development
