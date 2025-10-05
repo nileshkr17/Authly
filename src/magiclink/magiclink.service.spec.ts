@@ -6,6 +6,13 @@ import { UsersService } from '../users/users.service';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../users/user.entity';
 
+// Mock nodemailer before importing it
+jest.mock('nodemailer', () => ({
+  createTransport: jest.fn().mockReturnValue({
+    sendMail: jest.fn().mockResolvedValue({ messageId: 'test-message-id' }),
+  }),
+}));
+
 describe('MagiclinkService', () => {
   let service: MagiclinkService;
 
@@ -50,6 +57,7 @@ describe('MagiclinkService', () => {
         SMTP_USER: 'test@test.com',
         SMTP_PASSWORD: 'password',
         SMTP_FROM: 'noreply@test.com',
+        FRONTEND_URL: 'http://localhost:3000',
         NODE_ENV: 'development',
       };
       return config[key];
