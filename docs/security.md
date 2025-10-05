@@ -41,7 +41,8 @@ We recommend implementing the following password requirements in your applicatio
 
 - **Expiration**: 1 hour (configurable via `JWT_EXPIRATION`)
 - **Algorithm**: HS256 (HMAC with SHA-256)
-- **Storage**: Should be stored in memory or sessionStorage (not localStorage for better security)
+- **Storage**: Best practice is to use HTTP-only cookies set by the server. If not possible, use in-memory storage. Avoid `localStorage` and `sessionStorage` in production as they are vulnerable to XSS attacks.
+  > **Note:** The current implementation returns tokens in the response body. For production use, consider implementing HTTP-only cookie support on the server side.
 - **Secret**: Must be a strong, randomly generated string (minimum 32 characters)
 
 #### Refresh Token
@@ -259,7 +260,7 @@ Before deploying to production, ensure:
 - [ ] Rate limiting is implemented to prevent abuse
 - [ ] Security headers are configured (HSTS, CSP, etc.)
 - [ ] Secure, HTTP-only cookies are used for token storage
-  > **Note:** Do _not_ use `localStorage` or `sessionStorage` for storing authentication tokens, as they are accessible via JavaScript and vulnerable to XSS attacks. Always use secure, HTTP-only cookies for token storage.
+  > **Note:** Do _not_ use `localStorage` or `sessionStorage` for storing authentication tokens in production, as they are accessible via JavaScript and vulnerable to XSS attacks. Always use secure, HTTP-only cookies for token storage.
 - [ ] Input validation is working on all endpoints
 - [ ] Password requirements are enforced
 - [ ] Magic link expiration is set appropriately (15 minutes recommended)

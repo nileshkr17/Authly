@@ -499,9 +499,9 @@ const token = urlParams.get('token');
 const response = await fetch(`http://localhost:3000/api/magiclink/verify?token=${token}`);
 const { access_token } = await response.json();
 
-// Store token and redirect to app
-// Note: Use sessionStorage (better) or HTTP-only cookies (best) in production
-sessionStorage.setItem('access_token', access_token);
+// ⚠️ SECURITY NOTE: Store tokens securely!
+// The included frontend demo uses localStorage for simplicity.
+// For production: Consider implementing HTTP-only cookies on the server side for enhanced security.
 window.location.href = '/dashboard';
 ```
 
@@ -712,7 +712,7 @@ All errors follow this structure:
 ### How to Authenticate
 
 1. **Register or Login**: Get `access_token` and `refresh_token`
-2. **Store Tokens**: Save securely (memory, sessionStorage, or httpOnly cookies)
+2. **Store Tokens**: Save securely (see Token Storage Best Practices below)
 3. **Include in Requests**: Add `Authorization: Bearer <access_token>` header
 4. **Handle Expiration**: Use `refresh_token` to get new `access_token`
 
@@ -728,8 +728,9 @@ const loginResponse = await fetch('/api/auth/login', {
 const { access_token, refresh_token } = await loginResponse.json();
 
 // 2. Store tokens securely
-sessionStorage.setItem('access_token', access_token);
-sessionStorage.setItem('refresh_token', refresh_token);
+// ⚠️ SECURITY NOTE: The included frontend demo uses localStorage for simplicity.
+// For production, consider HTTP-only cookies for enhanced security.
+// See Token Storage Best Practices section below for details.
 
 // 3. Make authenticated requests
 const profileResponse = await fetch('/api/auth/profile', {
@@ -747,7 +748,7 @@ if (profileResponse.status === 401) {
     body: JSON.stringify({ refresh_token }),
   });
   const { access_token: newToken } = await refreshResponse.json();
-  sessionStorage.setItem('access_token', newToken);
+  // Store the new token securely (see Token Storage Best Practices)
 
   // Retry the original request
   // ...
@@ -756,31 +757,34 @@ if (profileResponse.status === 401) {
 
 ### Token Storage Best Practices
 
-#### ✅ Recommended: HTTP-only Cookies
+> **Current Implementation:** The API returns tokens in the response body (JSON). The included frontend demo uses `localStorage` for simplicity.
 
-```javascript
-// Server sets cookie with httpOnly flag
-res.cookie('access_token', token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: 'strict',
-  maxAge: 3600000, // 1 hour
-});
-```
+#### ✅ Recommended for Production: HTTP-only Cookies
 
-#### ⚠️ Alternative: sessionStorage
+For production deployments, the most secure approach is HTTP-only cookies:
 
-```javascript
-// In-memory or sessionStorage (cleared on tab close)
-sessionStorage.setItem('access_token', token);
-```
+- Tokens are not accessible to JavaScript (protects against XSS attacks)
+- Automatically included in requests to the same domain
+- Can be configured with `Secure` and `SameSite` flags for additional protection
+- Requires server-side implementation to set cookies in response headers
 
-#### ❌ Not Recommended: localStorage
+**Note:** This requires modifications to both the backend (to set cookies) and frontend (to handle cookie-based auth).
 
-```javascript
-// Vulnerable to XSS attacks
-localStorage.setItem('access_token', token); // DON'T DO THIS
-```
+#### ⚠️ Current Approach: localStorage
+
+The included frontend demo uses `localStorage` for token storage:
+
+- **Pros**: Simple to implement, persists across browser sessions, works well for demos
+- **Cons**: Accessible to any JavaScript on the page, vulnerable to XSS attacks
+- **Recommendation**: Acceptable for development and internal tools, but consider upgrading to HTTP-only cookies for production applications handling sensitive data
+
+**Security Tips if using localStorage:**
+
+- Implement Content Security Policy (CSP) headers to reduce XSS risk
+- Keep token expiration times short
+- Validate and sanitize all user input to prevent XSS
+- Regularly update dependencies to patch security vulnerabilities
+- Consider using libraries that provide additional XSS protection
 
 ---
 
