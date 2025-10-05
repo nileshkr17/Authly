@@ -250,38 +250,41 @@ For Magic Link authentication, configure your SMTP settings in `.env`. For Gmail
 2. Generate an App Password: https://myaccount.google.com/apppasswords
 3. Use the App Password in `SMTP_PASSWORD`
 
-### Production Security Checklist
+---
 
-Before deploying to production:
-
-- [ ] Change all default secrets to cryptographically secure random values
-- [ ] Use HTTPS for all connections
-- [ ] Enable CORS with specific allowed origins
-- [ ] Implement rate limiting to prevent abuse
-- [ ] Use secure, HTTP-only cookies for token storage
-- [ ] Keep dependencies up to date (`npm audit`)
-- [ ] Enable database connection encryption
-- [ ] Review and configure security headers (HSTS, CSP)
-- [ ] Set up proper logging and monitoring
-- [ ] Use environment-specific configurations
-
-## 🔒 Security Checklist for Deployment
+## 🔒 Production Security Checklist
 
 Before deploying to production, ensure:
 
+### Environment & Secrets
+
 - [ ] All environment variables use secure, randomly generated values
 - [ ] JWT_SECRET and JWT_REFRESH_SECRET are strong (32+ characters)
+- [ ] MAGIC_LINK_SECRET is cryptographically secure
 - [ ] Database credentials are secure and not default values
+- [ ] SMTP credentials are secure
+- [ ] OAuth client secrets are properly configured
+
+### Network & Communication
+
 - [ ] HTTPS is enabled and enforced
 - [ ] CORS is properly configured for your domain(s)
-- [ ] Rate limiting is implemented
-- [ ] Security headers are configured (HSTS, CSP, etc.)
 - [ ] OAuth callback URLs are whitelisted and use HTTPS
-- [ ] SMTP credentials are secure
-- [ ] Database backups are configured
-- [ ] Logging is enabled for security events
-- [ ] Dependencies are up to date (run `npm audit`)
+- [ ] Database connection encryption is enabled
+
+### Security Features
+
+- [ ] Rate limiting is implemented to prevent abuse
+- [ ] Security headers are configured (HSTS, CSP, etc.)
+- [ ] Secure, HTTP-only cookies are used for token storage
 - [ ] Input validation is working on all endpoints
 - [ ] Password requirements are enforced
-- [ ] Magic link expiration is set appropriately
+- [ ] Magic link expiration is set appropriately (15 minutes recommended)
+
+### Monitoring & Maintenance
+
+- [ ] Logging is enabled for security events
+- [ ] Database backups are configured
+- [ ] Dependencies are up to date (run `npm audit`)
+- [ ] Set up proper monitoring and alerting
 - [ ] Email sending is working and secure
