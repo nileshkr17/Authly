@@ -350,8 +350,9 @@ Google redirects here after user authorization.
 **Setup**:
 
 1. Get credentials from [Google Cloud Console](https://console.cloud.google.com/)
-2. Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in `.env`
-3. Add callback URL: `http://localhost:3000/api/oauth/google/callback`
+2. **Enable the "Google OAuth 2.0 API" for your project in the Google Cloud Console.**
+3. Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in `.env`
+4. Add callback URL: `http://localhost:3000/api/oauth/google/callback`
 
 ---
 
