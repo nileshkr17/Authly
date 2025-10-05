@@ -6,11 +6,7 @@ Authly is built with security as a top priority. This document outlines the secu
 
 ---
 
-## 🛡️---
-
-## 🔧 Development Setup
-
-### Generating Secure Secretsrity Features
+## 🛡️ Security Features
 
 ### Password Security
 
@@ -208,25 +204,7 @@ app.use(
 
 ---
 
-## � Development Setup
-
-### Generating Secure Secrets
-
-Never use the default secrets in production! Generate secure random secrets:
-
-```bash
-# Generate a 32-byte hex string (64 characters)
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-
-# Or using OpenSSL
-openssl rand -hex 32
-```
-
-Update these in your `.env` file:
-
-- `JWT_SECRET`
-- `JWT_REFRESH_SECRET`
-- `MAGIC_LINK_SECRET`
+## 🔧 Development Setup
 
 ### Setting Up OAuth
 
