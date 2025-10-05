@@ -7,5 +7,6 @@ module.exports = {
   },
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
+  coverageReporters: ['text', 'lcov', 'clover', 'json', 'html'],
   testEnvironment: 'node',
 };
