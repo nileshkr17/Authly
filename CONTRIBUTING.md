@@ -1,137 +1,154 @@
 # Contributing to Authly
 
-Thank you for considering contributing to Authly! This document outlines the process and requirements for contributing.
+Thank you for considering contributing to Authly!
 
-## Getting Started
+---
 
-1. Fork the repository
-2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/Authly.git`
-3. Create a feature branch: `git checkout -b feature/your-feature-name`
-4. Make your changes
-5. Commit your changes: `git commit -m 'Add some feature'`
-6. Push to the branch: `git push origin feature/your-feature-name`
-7. Open a Pull Request
+## 🎃 Hacktoberfest 2025
 
-## Pull Request Requirements
+Authly is participating in **Hacktoberfest 2025**! We welcome quality contributions from developers of all skill levels.
 
-Before submitting a Pull Request, ensure that:
+### What We're Looking For
 
-### ✅ Code Quality
-- [ ] **Linting passes**: Run `npm run lint` to check code style
-- [ ] **Build succeeds**: Run `npm run build` to ensure no compilation errors
-- [ ] **All tests pass**: Run `npm run test` to verify all existing tests pass
+- ✅ Bug fixes with tests
+- ✅ New features with comprehensive tests
+- ✅ Documentation improvements
+- ✅ Performance optimizations
 
-### ✅ Testing Requirements
-- [ ] **Add unit tests**: If you implement new functionality, you **must** add corresponding unit tests
-- [ ] **Test coverage**: Aim for at least 80% code coverage for new code
-- [ ] **Test your changes**: Run `npm run test:cov` to check coverage
+**For complete Hacktoberfest rules**, see the [official participation guide](https://hacktoberfest.com/participation/).
 
-> 📚 **For detailed testing and coverage information**, see [Testing and Coverage Documentation](docs/testing-and-coverage.md)
+**Finding Issues**: Look for labels like `hacktoberfest`, `good first issue`, or `help wanted`.
 
-### 📝 Test Guidelines
+---
 
-When adding unit tests:
-1. Place test files next to the file being tested with `.spec.ts` extension
-2. Follow the existing test patterns in the codebase (see `src/users/users.service.spec.ts` as an example)
-3. Mock external dependencies
-4. Test both success and error cases
-5. Use descriptive test names
+## 🚀 Getting Started
 
-Example test structure:
-```typescript
-describe('YourService', () => {
-  let service: YourService;
-  
-  beforeEach(async () => {
-    // Setup
-  });
+1. **Fork and clone** the repository
+2. **Install dependencies**: `npm ci`
+3. **Copy environment file**: `cp .env.example .env`
+4. **Start development server**: `docker-compose up --build` or `npm run start:dev`
+5. **Verify setup**: `npm run test && npm run lint && npm run build`
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+---
 
-  describe('yourMethod', () => {
-    it('should handle success case', async () => {
-      // Test implementation
-    });
-    
-    it('should handle error case', async () => {
-      // Test implementation
-    });
-  });
-});
-```
+## 📝 Making Changes
 
-## Automated PR Validation
+### Branch Naming
 
-When you open a Pull Request, our CI/CD pipeline will automatically:
-1. Run linting checks
-2. Build the project
-3. Execute all unit tests
-4. Generate a coverage report
-5. Verify that coverage files are generated correctly
-6. Upload coverage to Codecov (if configured)
-7. Comment the coverage report on your PR
+- `feature/` - New features (e.g., `feature/add-2fa`)
+- `fix/` - Bug fixes (e.g., `fix/login-error`)
+- `docs/` - Documentation (e.g., `docs/update-readme`)
+- `refactor/` - Code improvements (e.g., `refactor/auth-service`)
+- `test/` - Test additions (e.g., `test/add-user-tests`)
 
-**Your PR will not be merged unless all checks pass.**
+### Development Workflow
 
-## Development Workflow
+1. Create a feature branch from `main`
+2. Make your changes
+3. Add/update tests for your changes
+4. Ensure all tests pass locally
+5. Commit with clear messages
+6. Push and open a Pull Request
 
-### Install Dependencies
+---
+
+## 🧪 Testing
+
+All PRs must include tests for new functionality. For detailed testing guidelines, examples, and coverage information, see the [Testing Documentation](docs/testing-and-coverage.md).
+
+**Quick reference:**
+
+- Place test files next to source files with `.spec.ts` extension
+- Mock external dependencies
+- Test both success and error cases
+- Run `npm run test:cov` to check coverage
+
+---
+
+## 🔍 Code Review
+
+Your PR will be reviewed for:
+
+- Functionality and correctness
+- Test coverage and quality
+- Code readability and maintainability
+- Performance considerations
+- Security implications
+
+Please be responsive to feedback and make requested changes. Reviews may take a few days.
+
+---
+
+## 🤖 Automated Checks
+
+Our CI/CD pipeline automatically runs:
+
+1. Linting checks
+2. Build verification
+3. Unit tests
+4. Coverage reporting
+
+**PRs will not be merged until all checks pass.**
+
+---
+
+## 💻 Development Commands
+
 ```bash
+# Install dependencies
 npm ci
+
+# Development
+npm run start:dev          # Start with hot-reload
+docker-compose up --build  # Start with Docker
+
+# Testing
+npm run test              # Run all tests
+npm run test:watch        # Watch mode
+npm run test:cov          # With coverage
+
+# Code Quality
+npm run lint              # Check linting
+npm run format            # Format code
+npm run build             # Build project
+
+# Database
+npm run migration:generate -- src/migrations/Name
+npm run migration:run
+npm run migration:revert
 ```
 
-### Run Development Server
-```bash
-npm run start:dev
-```
+---
 
-### Run Linting
-```bash
-npm run lint
-```
+## 📋 Code Style
 
-### Run Tests
-```bash
-# Run all tests
-npm run test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test:cov
-```
-
-### Build Project
-```bash
-npm run build
-```
-
-## Code Style
-
-- Follow the existing code style
-- Use TypeScript types properly
-- Write clear, self-documenting code
-- Add comments only when necessary to explain complex logic
+- Use TypeScript types properly (avoid `any`)
+- Follow existing code patterns
+- Write self-documenting code
+- Add comments only for complex logic
 
 ## Commit Messages
 
 Write clear and meaningful commit messages:
+
 - Use present tense ("Add feature" not "Added feature")
 - Use imperative mood ("Move cursor to..." not "Moves cursor to...")
 - Start with a capital letter
 - Keep the first line under 72 characters
 - Reference issues and pull requests when relevant
 
+---
+
 ## Questions?
 
 If you have questions or need help, feel free to:
+
 - Open an issue
 - Ask in the pull request discussion
 - Reach out to the maintainers
 
-## License
+---
+
+## 📄 License
 
 By contributing, you agree that your contributions will be licensed under the ISC License.
