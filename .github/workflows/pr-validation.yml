@@ -68,19 +68,23 @@ jobs:
               const coverage = JSON.parse(fs.readFileSync(coveragePath, 'utf8'));
               const total = coverage.total;
               
-              const comment = `## 📊 Test Coverage Report
-
-| Metric | Coverage |
-|--------|----------|
-| **Statements** | ${total.statements.pct}% |
-| **Branches** | ${total.branches.pct}% |
-| **Functions** | ${total.functions.pct}% |
-| **Lines** | ${total.lines.pct}% |
-
-${total.statements.pct < 80 ? '⚠️ Coverage is below 80%. Please add more unit tests.' : '✅ Great coverage!'}
-`;
+              const lines = [
+                '## 📊 Test Coverage Report',
+                '',
+                '| Metric | Coverage |',
+                '|--------|----------|',
+                `| **Statements** | ${total.statements.pct}% |`,
+                `| **Branches** | ${total.branches.pct}% |`,
+                `| **Functions** | ${total.functions.pct}% |`,
+                `| **Lines** | ${total.lines.pct}% |`,
+                '',
+                (total.statements.pct < 80)
+                  ? '⚠️ Coverage is below 80%. Please add more unit tests.'
+                  : '✅ Great coverage!'
+              ];
+              const comment = lines.join('\n');
               
-              github.rest.issues.createComment({
+              await github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
