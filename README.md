@@ -1,5 +1,7 @@
 <div align="center">
 
+![Authly Banner](https://raw.githubusercontent.com/nileshkr17/Authly/main/assets/authly-banner.svg)
+
 # 🔐 Authly
 
 ### Plug-and-Play Authentication Microservice for Indie Developers
@@ -9,6 +11,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-friendly-orange)](https://hacktoberfest.com/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/nileshkr17/Authly/pulls)
+[![Contributors](https://img.shields.io/github/contributors/nileshkr17/Authly)](https://github.com/nileshkr17/Authly/graphs/contributors)
+[![Issues](https://img.shields.io/github/issues/nileshkr17/Authly)](https://github.com/nileshkr17/Authly/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/nileshkr17/Authly)](https://github.com/nileshkr17/Authly/pulls)
 
 [Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [API Usage](#-api-usage) • [Contributing](#-contributing)
 
@@ -23,6 +28,80 @@ Building authentication from scratch is time-consuming, error-prone, and complex
 
 ### The Solution
 **Authly** is a production-ready authentication microservice that you can deploy in minutes. It handles all the complexity of modern authentication, so you can focus on building your application.
+
+<div align="center">
+
+![Architecture](https://raw.githubusercontent.com/nileshkr17/Authly/main/assets/architecture.svg)
+
+</div>
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v20 or higher)
+- PostgreSQL (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/nileshkr17/Authly.git
+cd Authly
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Set up environment variables**
+
+Copy the `.env.example` file to `.env` and configure your environment variables:
+
+```bash
+cp .env.example .env
+```
+
+Required environment variables:
+- `DATABASE_HOST` - PostgreSQL host
+- `DATABASE_PORT` - PostgreSQL port (default: 5432)
+- `DATABASE_USER` - PostgreSQL username
+- `DATABASE_PASSWORD` - PostgreSQL password
+- `DATABASE_NAME` - Database name
+- `JWT_SECRET` - Secret key for JWT tokens
+- `JWT_REFRESH_SECRET` - Secret key for refresh tokens
+- `GOOGLE_CLIENT_ID` - Google OAuth client ID (optional)
+- `GOOGLE_CLIENT_SECRET` - Google OAuth client secret (optional)
+- `GITHUB_CLIENT_ID` - GitHub OAuth client ID (optional)
+- `GITHUB_CLIENT_SECRET` - GitHub OAuth client secret (optional)
+- `SMTP_HOST` - SMTP server host for emails
+- `SMTP_PORT` - SMTP server port
+- `SMTP_USER` - SMTP username
+- `SMTP_PASSWORD` - SMTP password
+
+4. **Start the development server**
+
+```bash
+npm run start:dev
+```
+
+The API will be available at `http://localhost:3000`
+
+### Quick Start with Docker
+
+For a faster setup, use Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+This will start both the application and PostgreSQL database.
 
 ---
 
@@ -464,6 +543,34 @@ docker-compose down -v
 ## 📝 License
 
 This project is licensed under the ISC License.
+
+## 👥 Maintainers
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/nileshkr17">
+        <img src="https://github.com/nileshkr17.png" width="100px;" alt="Nilesh Kumar"/>
+        <br />
+        <sub><b>Nilesh Kumar</b></sub>
+      </a>
+      <br />
+      <sub>Project Lead</sub>
+    </td>
+  </tr>
+</table>
+
+## 🌟 Contributors
+
+Thanks to all the amazing contributors who have helped make Authly better! 💙
+
+[![Contributors](https://contrib.rocks/image?repo=nileshkr17/Authly)](https://github.com/nileshkr17/Authly/graphs/contributors)
+
+### Contribution Activity
+
+![GitHub Contributor Activity](https://repobeats.axiom.co/api/embed/7f3a0e8f8d6c3b5e4f2d1a0c9b8e7f6d5c4b3a2.svg "Repobeats analytics image")
+
+Want to contribute? Check out our [Contributing Guidelines](#-contributing)!
 
 ## 🙏 Acknowledgments
 
