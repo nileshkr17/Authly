@@ -41,7 +41,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600">
-                You're successfully logged in to Authly.
+                You&apos;re successfully logged in to Authly.
               </p>
             </CardContent>
           </Card>

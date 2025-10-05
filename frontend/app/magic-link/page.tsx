@@ -17,13 +17,6 @@ function MagicLinkContent() {
   const [success, setSuccess] = useState(false);
   const [verifying, setVerifying] = useState(false);
 
-  useEffect(() => {
-    const token = searchParams.get('token');
-    if (token) {
-      verifyToken(token);
-    }
-  }, [searchParams]);
-
   const verifyToken = async (token: string) => {
     setVerifying(true);
     try {
@@ -35,6 +28,14 @@ function MagicLinkContent() {
       setVerifying(false);
     }
   };
+
+  useEffect(() => {
+    const token = searchParams.get('token');
+    if (token) {
+      verifyToken(token);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,7 +96,7 @@ function MagicLinkContent() {
                 <div className="mb-4 text-6xl">📧</div>
                 <h3 className="text-xl font-semibold mb-2">Check your email!</h3>
                 <p className="text-gray-600 mb-4">
-                  We've sent a magic link to <strong>{email}</strong>
+                  We&apos;ve sent a magic link to <strong>{email}</strong>
                 </p>
                 <p className="text-sm text-gray-500">
                   Click the link in your email to login. The link will expire in 15 minutes.
@@ -104,7 +105,7 @@ function MagicLinkContent() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <p className="text-gray-600 text-sm mb-4">
-                  Enter your email and we'll send you a magic link to login without a password.
+                  Enter your email and we&apos;ll send you a magic link to login without a password.
                 </p>
 
                 {error && (
