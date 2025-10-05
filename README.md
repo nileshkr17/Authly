@@ -16,7 +16,7 @@
 [![Issues](https://img.shields.io/github/issues/nileshkr17/Authly)](https://github.com/nileshkr17/Authly/issues)
 [![Pull Requests](https://img.shields.io/github/issues-pr/nileshkr17/Authly)](https://github.com/nileshkr17/Authly/pulls)
 
-[Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [API Usage](#-api-usage) • [Contributing](#-contributing)
+[Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [API Docs](docs/api-documentation.md) • [Security](docs/security.md) • [Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -25,9 +25,11 @@
 ## 🎯 Problem & Solution
 
 ### The Problem
+
 Building authentication from scratch is time-consuming, error-prone, and complex. Indie developers and small teams often spend weeks implementing secure authentication instead of focusing on their core product.
 
 ### The Solution
+
 **Authly** is a production-ready authentication microservice that you can deploy in minutes. It handles all the complexity of modern authentication, so you can focus on building your application.
 
 <div align="center">
@@ -70,6 +72,7 @@ cp .env.example .env
 ```
 
 Required environment variables:
+
 - `DATABASE_HOST` - PostgreSQL host
 - `DATABASE_PORT` - PostgreSQL port (default: 5432)
 - `DATABASE_USER` - PostgreSQL username
@@ -139,6 +142,7 @@ See the [Frontend README](./frontend/README.md) for detailed setup instructions.
 ## ✨ Features
 
 ### 🎯 Must-Have Features
+
 - ✅ **JWT-based Authentication** - Secure token-based authentication with refresh tokens
 - ✅ **Email/Password Login** - Traditional signup and login with secure password hashing
 - ✅ **OAuth Integration** - Seamless login with Google and GitHub
@@ -148,6 +152,7 @@ See the [Frontend README](./frontend/README.md) for detailed setup instructions.
 - ✅ **Security Best Practices** - Password hashing, CORS, rate limiting, and more
 
 ### 🚀 Should-Have Features (Coming Soon)
+
 - 📧 Email Verification
 - 🔄 Password Reset Flow
 - 👥 Role-Based Access Control (RBAC)
@@ -156,7 +161,8 @@ See the [Frontend README](./frontend/README.md) for detailed setup instructions.
 - 📊 Activity Logging
 
 ### 💡 Could-Have Features (Future Roadmap)
-- ✅ **Pre-built Web UI** - Complete Next.js frontend with authentication and admin panel
+
+- 🎨 Pre-built UI Components - Complete Next.js frontend with authentication and admin panel
 - 📦 SDK for Popular Frameworks (React, Vue, Angular)
 - 🔌 Webhook Support
 - 📈 Analytics Dashboard
@@ -219,6 +225,7 @@ cp .env.example .env
 ```
 
 Edit `.env` file and update the following variables:
+
 - `JWT_SECRET` - Your JWT secret key
 - `JWT_REFRESH_SECRET` - Your JWT refresh token secret
 - `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` - For Google OAuth
@@ -273,233 +280,9 @@ Once the application is running, you can verify it's working by accessing:
 - API endpoint: `http://localhost:3000/api`
 - Health check: Try registering a user or accessing any API endpoint
 
+**For complete API documentation and examples**, see [API Documentation](docs/api-documentation.md).
+
 ---
-
-## 📸 API Usage Examples
-
-### 🔹 User Registration
-
-```bash
-POST /api/auth/signup
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "password": "SecurePassword123!",
-  "name": "John Doe"
-}
-```
-
-**Response:**
-
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": {
-    "id": "uuid",
-    "email": "user@example.com",
-    "firstName": "John",
-    "lastName": "Doe"
-  }
-}
-```
-
-#### 2. Login
-
-**POST** `/api/auth/login`
-
-```json
-{
-  "email": "user@example.com",
-  "password": "securePassword123"
-}
-```
-
-**Response:**
-
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": {
-    "id": "uuid",
-    "email": "user@example.com",
-    "firstName": "John",
-    "lastName": "Doe"
-  }
-}
-```
-
-#### 3. Refresh Token
-
-**POST** `/api/auth/refresh`
-
-```json
-{
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
-
-**Response:**
-
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": {
-    "id": "uuid",
-    "email": "user@example.com"
-  }
-}
-```
-
-### OAuth Endpoints
-
-#### 4. Google OAuth
-
-**GET** `/api/oauth/google`
-
-Redirects to Google OAuth consent screen.
-
-**GET** `/api/oauth/google/callback`
-
-Google OAuth callback endpoint. Returns JWT tokens upon successful authentication.
-
-#### 5. GitHub OAuth
-
-**GET** `/api/oauth/github`
-
-Redirects to GitHub OAuth authorization screen.
-
-**GET** `/api/oauth/github/callback`
-
-GitHub OAuth callback endpoint. Returns JWT tokens upon successful authentication.
-
-### Magic Link Endpoints
-
-#### 6. Send Magic Link
-
-**POST** `/api/magiclink/send`
-
-```json
-{
-  "email": "user@example.com"
-}
-```
-
-**Response:**
-
-```json
-{
-  "message": "Magic link sent to your email"
-}
-```
-
-#### 7. Verify Magic Link
-
-**GET** `/api/magiclink/verify?token=<magic_link_token>`
-
-**Response:**
-
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": {
-    "id": "uuid",
-    "email": "user@example.com"
-  }
-}
-```
-
-### Protected Routes
-
-#### 8. Get User Profile (Protected)
-
-**GET** `/api/auth/profile`
-
-**Headers:**
-```
-Authorization: Bearer <access_token>
-```
-
-**Response:**
-
-```json
-{
-  "message": "This is a protected route",
-  "user": {
-    "id": "uuid",
-    "email": "user@example.com",
-    "firstName": "John",
-    "lastName": "Doe",
-    "isActive": true,
-    "createdAt": "2025-10-04T00:00:00.000Z",
-    "updatedAt": "2025-10-04T00:00:00.000Z"
-  }
-}
-```
-
-**Example with cURL:**
-
-```bash
-curl -X GET http://localhost:3000/api/auth/profile \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-```
-
-### Using JWT Auth Guard in Your Code
-
-To protect your own routes, use the `JwtAuthGuard`:
-
-```typescript
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-
-@Controller('protected')
-export class ProtectedController {
-  @UseGuards(JwtAuthGuard)
-  @Get()
-  getProtectedData() {
-    return { message: 'This route is protected' };
-  }
-}
-```
-
-### User Endpoints
-
-#### 9. Get All Users (Protected)
-
-**GET** `/api/users`
-
-**Headers:**
-```
-Authorization: Bearer <access_token>
-```
-
-**Response:**
-
-```json
-[
-  {
-    "id": "uuid",
-    "email": "user@example.com",
-    "firstName": "John",
-    "lastName": "Doe",
-    "isEmailVerified": true,
-    "createdAt": "2024-01-01T00:00:00.000Z"
-  }
-]
-```
-
-#### 9. Get User by ID (Protected)
-
-**GET** `/api/users/:id`
-
-**Headers:**
-```
-Authorization: Bearer <access_token>
-```
 
 ## 🧪 Testing
 
@@ -620,31 +403,21 @@ npm run format
 npm run build
 ```
 
-## 🔐 Setting Up OAuth
+---
 
-### Google OAuth
+## 🔐 Security
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing one
-3. Enable Google+ API
-4. Create OAuth 2.0 credentials
-5. Add authorized redirect URIs: `http://localhost:3000/api/oauth/google/callback`
-6. Copy Client ID and Client Secret to `.env`
+Authly implements multiple security best practices:
 
-### GitHub OAuth
+- **Password Security**: bcrypt hashing with salt rounds, no plain-text storage
+- **JWT Token Security**: Short-lived access tokens, refresh token rotation, HS256 algorithm
+- **Magic Link Security**: Time-limited, one-time use, cryptographically secure tokens
+- **Input Validation**: DTO validation using class-validator, type safety with TypeScript
+- **OAuth Security**: Secure Google and GitHub OAuth integration
 
-1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
-2. Create a new OAuth App
-3. Set Authorization callback URL: `http://localhost:3000/api/oauth/github/callback`
-4. Copy Client ID and Client Secret to `.env`
+**For complete security documentation, setup guides, and production checklist**, see [Security Documentation](docs/security.md).
 
-## 📧 Email Configuration
-
-For Magic Link authentication, configure your SMTP settings in `.env`. For Gmail:
-
-1. Enable 2-factor authentication
-2. Generate an App Password
-3. Use the App Password in `SMTP_PASSWORD`
+---
 
 ## 🐳 Docker Deployment
 
@@ -678,6 +451,7 @@ We welcome contributions! Before submitting a Pull Request, please ensure:
 For detailed guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 **Quick Start:**
+
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 3. Add your changes **with tests**
@@ -714,7 +488,7 @@ Thanks to all the amazing contributors who have helped make Authly better! 💙
 
 ### Contribution Activity
 
-![GitHub Contributor Activity](https://repobeats.axiom.co/api/embed/7f3a0e8f8d6c3b5e4f2d1a0c9b8e7f6d5c4b3a2.svg "Repobeats analytics image")
+![GitHub Contributor Activity](https://repobeats.axiom.co/api/embed/7f3a0e8f8d6c3b5e4f2d1a0c9b8e7f6d5c4b3a2.svg 'Repobeats analytics image')
 
 Want to contribute? Check out our [Contributing Guidelines](#-contributing)!
 
@@ -724,4 +498,3 @@ Want to contribute? Check out our [Contributing Guidelines](#-contributing)!
 - [TypeORM](https://typeorm.io/) - ORM for TypeScript
 - [Passport](http://www.passportjs.org/) - Authentication middleware
 - [JWT](https://jwt.io/) - JSON Web Tokens
-
