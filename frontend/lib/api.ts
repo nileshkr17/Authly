@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { AuthTokens, LoginCredentials, RegisterData, MagicLinkRequest, User } from '@/types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002/api';
 
 class ApiService {
   private api: AxiosInstance;
@@ -115,8 +115,8 @@ class ApiService {
   }
 
   // Magic link endpoints
-  async sendMagicLink(data: MagicLinkRequest): Promise<{ message: string }> {
-    const response = await this.api.post<{ message: string }>('/magiclink/send', data);
+  async sendMagicLink(data: MagicLinkRequest): Promise<{ message: string; devToken?: string }> {
+    const response = await this.api.post<{ message: string; devToken?: string }>('/magiclink/send', data);
     return response.data;
   }
 

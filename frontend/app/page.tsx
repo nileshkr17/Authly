@@ -27,6 +27,12 @@ export default function Home() {
                 Get Started
               </Link>
               <Link
+                href="/magic-link"
+                className="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors"
+              >
+                ✉️ Try Magic Link
+              </Link>
+              <Link
                 href="/signup"
                 className="px-6 py-3 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition-colors"
               >
@@ -58,15 +64,17 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardContent>
-              <div className="text-4xl mb-4">✉️</div>
-              <h3 className="text-xl font-semibold mb-2">Magic Links</h3>
-              <p className="text-gray-600">
-                Passwordless authentication via email
-              </p>
-            </CardContent>
-          </Card>
+          <Link href="/magic-link">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardContent>
+                <div className="text-4xl mb-4">✉️</div>
+                <h3 className="text-xl font-semibold mb-2">Magic Links</h3>
+                <p className="text-gray-600">
+                  Passwordless authentication via email
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
 
         {/* Authentication Methods */}
