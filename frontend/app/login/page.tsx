@@ -62,17 +62,22 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-12 animate-fadeIn">
       <div className="max-w-md mx-auto">
         <Card>
           <CardHeader>
-            <CardTitle>Login to Authly</CardTitle>
+            <CardTitle className="text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Login to Authly
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               {error && (
-                <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
-                  {error}
+                <div className="p-4 bg-red-50 border-2 border-red-200 text-red-700 rounded-xl text-sm flex items-start space-x-3 animate-slideIn">
+                  <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
+                  </svg>
+                  <span>{error}</span>
                 </div>
               )}
 
@@ -99,24 +104,27 @@ export default function LoginPage() {
               </Button>
             </form>
 
-            <div className="mt-6">
+            <div className="mt-8">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
+                  <div className="w-full border-t-2 border-gray-200"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                  <span className="px-4 bg-white text-gray-500 font-semibold">Or continue with</span>
                 </div>
               </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-3">
+              <div className="mt-6 grid grid-cols-2 gap-4">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => handleOAuthLogin('google')}
                   className="w-full"
                 >
-                  🔍 Google
+                  <span className="flex items-center justify-center space-x-2">
+                    <span>🔍</span>
+                    <span>Google</span>
+                  </span>
                 </Button>
                 <Button
                   type="button"
@@ -124,21 +132,24 @@ export default function LoginPage() {
                   onClick={() => handleOAuthLogin('github')}
                   className="w-full"
                 >
-                  🐙 GitHub
+                  <span className="flex items-center justify-center space-x-2">
+                    <span>🐙</span>
+                    <span>GitHub</span>
+                  </span>
                 </Button>
               </div>
             </div>
 
-            <div className="mt-6 text-center space-y-2">
+            <div className="mt-8 text-center space-y-3">
               <Link
                 href="/magic-link"
-                className="block text-sm text-blue-600 hover:underline"
+                className="block text-sm font-semibold text-blue-600 hover:text-purple-600 transition-colors"
               >
-                Login with Magic Link
+                ✨ Login with Magic Link
               </Link>
               <div className="text-sm text-gray-600">
                 Don&apos;t have an account?{' '}
-                <Link href="/signup" className="text-blue-600 hover:underline">
+                <Link href="/signup" className="font-semibold text-blue-600 hover:text-purple-600 transition-colors">
                   Sign up
                 </Link>
               </div>
